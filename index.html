@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- LIGHT MODE TOKENS --- */
+        /* --- LIGHT MODE TOKENS (Default) --- */
         :root {
             --bg-base: #F8F9FA;
             --bg-gradient-spot: rgba(2, 132, 199, 0.03); /* Swapped to blue tint */
@@ -30,6 +30,9 @@
             --badge-bg: #FFFFFF;
             --img-fallback: #F1F5F9;
             --scroll-hint-bg: rgba(255, 255, 255, 0.95);
+            
+            --modal-overlay: rgba(248, 249, 250, 0.8);
+            --input-bg: #FFFFFF;
         }
 
         /* --- DARK MODE TOKENS --- */
@@ -52,6 +55,9 @@
             --badge-bg: rgba(15, 17, 21, 0.8);
             --img-fallback: #1E293B;
             --scroll-hint-bg: rgba(15, 17, 21, 0.85);
+            
+            --modal-overlay: rgba(15, 17, 21, 0.85);
+            --input-bg: rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -80,15 +86,82 @@
             position: relative;
         }
 
-        /* --- Theme Toggle Button --- */
-        .theme-toggle {
+        /* --- Control Strip (Top Right) --- */
+        .top-controls {
             position: absolute;
             top: 2rem;
             right: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .control-icon {
+            position: relative;
             background: var(--surface-bg);
             border: 1px solid var(--surface-border);
             color: var(--text-dark);
-            padding: 0.6rem 1.2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: var(--surface-shadow);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .control-icon:hover {
+            transform: translateY(-2px);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        /* Tooltips for Control Strip */
+        .control-icon::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 130%;
+            right: 0;
+            width: max-content;
+            max-width: 240px;
+            background: var(--surface-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--surface-border);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            color: var(--text-dark);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: var(--surface-shadow);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .control-icon:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Theme Toggle Button (Adjusted for Flexbox) */
+        .theme-toggle {
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dark);
+            padding: 0 1.2rem;
+            height: 44px;
             border-radius: 100px;
             font-family: 'Outfit', sans-serif;
             font-weight: 500;
@@ -101,7 +174,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            z-index: 100;
         }
 
         .theme-toggle:hover {
@@ -332,21 +404,204 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* --- MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: var(--surface-shadow-hover);
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--filter-bg);
+            border: 1px solid var(--filter-border);
+            color: var(--text-dark);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .modal-content li {
+            color: var(--text-dark);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--surface-border);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .modal-content li::before {
+            content: '⚡';
+            font-size: 0.8rem;
+        }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dark);
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-blue);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem;
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--accent-glow);
+        }
+
+        .security-notice {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .honeypot-field { display: none !important; }
+
+        .math-captcha {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--filter-bg);
+            padding: 1rem;
+            border-radius: 16px;
+            border: 1px solid var(--surface-border);
+        }
+        
+        .math-captcha input {
+            width: 80px;
+            padding: 0.5rem;
+        }
+
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
             .container { padding: 4rem 1.5rem; }
             h1 { font-size: 2.5rem; }
             .card { padding: 1rem; border-radius: 28px; }
             .card-img-wrapper { height: 220px; }
-            .theme-toggle { top: 1rem; right: 1rem; font-size: 0.8rem; }
+            .top-controls { top: 1rem; right: 1rem; gap: 0.5rem; }
+            .control-icon { width: 38px; height: 38px; font-size: 1rem; }
+            .theme-toggle { height: 38px; font-size: 0.8rem; padding: 0 0.8rem; }
+            .modal-content { padding: 2rem; width: 95%; }
         }
     </style>
 </head>
 <body data-theme="dark">
 
-    <button class="theme-toggle" id="theme-toggle">
-        <span id="theme-icon">☀️</span> Light Mode
-    </button>
+    <div class="top-controls">
+        <div class="control-icon" id="open-info" data-tooltip="Our Capabilities">?</div>
+        <div class="control-icon" id="open-contact" data-tooltip="Start a Project">✉️</div>
+        <button class="theme-toggle" id="theme-toggle">
+            <span id="theme-icon">☀️</span> Light Mode
+        </button>
+    </div>
 
     <div class="container">
         <header>
@@ -364,6 +619,73 @@
 
         <main class="grid" id="portfolio-grid">
             </main>
+    </div>
+
+    <div class="modal-overlay" id="modal-info">
+        <div class="modal-content">
+            <button class="close-btn" data-close="modal-info">&times;</button>
+            <span class="handwritten-accent" style="font-size: 1.8rem;">who we are</span>
+            <h2>Digital Architecture, Redefined.</h2>
+            <p>Blue Moon Studios Dev is a boutique digital architecture firm. Most agencies build digital brochures; we build digital engines. We bridge the gap between premium visual design and heavy-duty software engineering.</p>
+            
+            <ul>
+                <li><strong>High-Conversion Frontend Design:</strong> Bespoke landing pages engineered to drive B2B and B2C sales.</li>
+                <li><strong>Enterprise Dashboards:</strong> Custom operational logic to automate and scale your daily workflows.</li>
+                <li><strong>Secure Client Portals:</strong> Secure and friction-free onboarding environments.</li>
+                <li><strong>Real-Time Systems:</strong> Low-latency WebSockets and mapping API integrations.</li>
+            </ul>
+            
+            <p>Stop wrestling with out-of-the-box tools. <br>Let's build the exact system your business needs to scale.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-contact">
+        <div class="modal-content">
+            <button class="close-btn" data-close="modal-contact">&times;</button>
+            <span class="handwritten-accent" style="font-size: 1.8rem;">let's build</span>
+            <h2>Project Inquiry.</h2>
+            <p style="margin-bottom: 2rem;">Fill out the scope of your project below. Our system will securely format your request for our architectural team.</p>
+
+            <form id="inquiry-form">
+                <input type="text" id="trap_url" class="honeypot-field" autocomplete="off" tabindex="-1">
+
+                <div class="form-group">
+                    <label for="f-name">Full Name</label>
+                    <input type="text" id="f-name" class="form-control" required placeholder="Jane Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="f-biz">Business / Company Name</label>
+                    <input type="text" id="f-biz" class="form-control" required placeholder="Acme Corp">
+                </div>
+
+                <div class="form-group">
+                    <label for="f-budget">Estimated Budget Scope</label>
+                    <select id="f-budget" class="form-control" required>
+                        <option value="" disabled selected>Select a range...</option>
+                        <option value="$2,500 - $5,000 (Frontend / UI)">$2,500 - $5,000 (Frontend / UI)</option>
+                        <option value="$5,000 - $10,000 (Full-Stack Portal)">$5,000 - $10,000 (Full-Stack Portal)</option>
+                        <option value="$10,000+ (Enterprise System)">$10,000+ (Enterprise System)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="f-msg">Project Details & Pain Points</label>
+                    <textarea id="f-msg" class="form-control" required placeholder="We are currently losing 10 hours a week to manual data entry..."></textarea>
+                </div>
+
+                <div class="form-group math-captcha">
+                    <label for="f-math" style="margin-bottom: 0;">Security Check: What is 5 + 4?</label>
+                    <input type="text" id="f-math" class="form-control" required placeholder="?">
+                </div>
+
+                <button type="submit" class="submit-btn">Initialize Request</button>
+                
+                <p class="security-notice">
+                    🔒 <strong>Data Disclaimer:</strong> By proceeding, your local email client will open securely with the provided data pre-formatted. We do not store your data on intermediary web servers. 
+                </p>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -512,6 +834,57 @@
                 renderGrid(e.target.dataset.filter);
             });
         });
+
+        // --- NEW MODAL & FORM LOGIC APPENDED HERE ---
+        const btnInfo = document.getElementById('open-info');
+        const btnContact = document.getElementById('open-contact');
+        const modalInfo = document.getElementById('modal-info');
+        const modalContact = document.getElementById('modal-contact');
+        const closeBtns = document.querySelectorAll('.close-btn');
+
+        if(btnInfo) btnInfo.addEventListener('click', () => modalInfo.classList.add('active'));
+        if(btnContact) btnContact.addEventListener('click', () => modalContact.classList.add('active'));
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modalToClose = document.getElementById(btn.getAttribute('data-close'));
+                if(modalToClose) modalToClose.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        const inquiryForm = document.getElementById('inquiry-form');
+        if(inquiryForm) {
+            inquiryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (document.getElementById('trap_url').value !== "") return;
+                
+                const mathAns = document.getElementById('f-math').value.trim();
+                if (mathAns !== "9") {
+                    alert("Security Check Failed. Please answer the math question correctly.");
+                    return;
+                }
+
+                const name = encodeURIComponent(document.getElementById('f-name').value.trim());
+                const biz = encodeURIComponent(document.getElementById('f-biz').value.trim());
+                const budget = encodeURIComponent(document.getElementById('f-budget').value);
+                const msg = encodeURIComponent(document.getElementById('f-msg').value.trim());
+
+                const subject = `Enterprise Inquiry: ${biz} - ${name}`;
+                const body = `CLIENT PROFILE%0D%0A-------------------%0D%0AName: ${name}%0D%0ACompany: ${biz}%0D%0ABudget Scope: ${budget}%0D%0A%0D%0APROJECT BRIEF%0D%0A-------------------%0D%0A${msg}%0D%0A%0D%0A%0D%0A[Sent via Blue Moon Studios Dev Secure Portal]`;
+
+                window.location.href = `mailto:bluemoonstudiosservices@gmail.com?subject=${subject}&body=${body}`;
+                
+                if(modalContact) modalContact.classList.remove('active');
+                this.reset();
+            });
+        }
     </script>
 </body>
 </html>
