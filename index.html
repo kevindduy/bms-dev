@@ -3,174 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Moon Studios Dev | Portfolio</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <title>Blue Moon Studios Dev | Enterprise Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
+        /* --- LIGHT MODE TOKENS --- */
         :root {
-            /* * MIDNIGHT SLATE & FROST PALETTE 
-             * Base: Deep Matte Slate (#0F1115)
-             * Accent: Icy Cyan (#38BDF8)
-             * Text: Crisp White & Cool Grey
-             */
+            --bg-base: #F8F9FA;
+            --bg-gradient-spot: rgba(67, 56, 202, 0.03);
             
-            --bg-base: #0F1115;
+            --surface-bg: rgba(255, 255, 255, 0.85);
+            --surface-border: rgba(255, 255, 255, 1);
+            --surface-shadow: 0 12px 36px -12px rgba(49, 56, 96, 0.08), 0 4px 12px -4px rgba(49, 56, 96, 0.04);
+            --surface-shadow-hover: 0 24px 48px -12px rgba(49, 56, 96, 0.12), 0 8px 24px -4px rgba(49, 56, 96, 0.06);
             
-            /* Dark Mode Glass Tokens */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.12);
-            --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --accent-indigo: #4338CA; 
             
-            /* Typographic Tokens */
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --accent-color: #38BDF8; /* Crisp, tech-forward blue */
+            --filter-bg: #FFFFFF;
+            --filter-border: rgba(226, 232, 240, 1);
+            --badge-bg: #FFFFFF;
+            --img-fallback: #F1F5F9;
+            --scroll-hint-bg: rgba(255, 255, 255, 0.95);
+            
+            --modal-overlay: rgba(248, 249, 250, 0.8);
+            --input-bg: #FFFFFF;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        /* --- DARK MODE TOKENS --- */
+        [data-theme="dark"] {
+            --bg-base: #0F1115;
+            --bg-gradient-spot: rgba(129, 140, 248, 0.05);
+            
+            --surface-bg: rgba(255, 255, 255, 0.03);
+            --surface-border: rgba(255, 255, 255, 0.08);
+            --surface-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+            --surface-shadow-hover: 0 30px 60px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            
+            --text-dark: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-indigo: #818CF8; 
+            
+            --filter-bg: rgba(255, 255, 255, 0.03);
+            --filter-border: rgba(255, 255, 255, 0.08);
+            --badge-bg: rgba(15, 17, 21, 0.8);
+            --img-fallback: #1E293B;
+            --scroll-hint-bg: rgba(15, 17, 21, 0.85);
+            
+            --modal-overlay: rgba(15, 17, 21, 0.85);
+            --input-bg: rgba(0, 0, 0, 0.2);
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Outfit', sans-serif;
-            color: var(--text-main);
-            min-height: 100vh;
+            color: var(--text-dark);
             background-color: var(--bg-base);
-            /* Soft, cool-toned mesh lighting */
+            min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 40%),
-                radial-gradient(circle at 85% 15%, rgba(148, 163, 184, 0.05) 0px, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(56, 189, 248, 0.05) 0px, transparent 50%);
+                radial-gradient(circle at top right, var(--bg-gradient-spot) 0%, transparent 40%),
+                radial-gradient(circle at bottom left, var(--bg-gradient-spot) 0%, transparent 40%);
             background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
             position: relative;
         }
 
+        /* --- CONTROL STRIP --- */
+        .top-controls {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .control-icon {
+            position: relative;
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dark);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--surface-shadow);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .control-icon:hover {
+            transform: translateY(-2px);
+            color: var(--accent-indigo);
+            border-color: var(--accent-indigo);
+        }
+
+        .theme-toggle {
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dark);
+            padding: 0 1.2rem;
+            height: 44px;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--surface-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            color: var(--accent-indigo);
+            border-color: var(--accent-indigo);
+        }
+
+        /* Tooltips */
+        .control-icon::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 130%;
+            right: 0;
+            width: max-content;
+            max-width: 240px;
+            background: var(--surface-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--surface-border);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            color: var(--text-dark);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            box-shadow: var(--surface-shadow);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .control-icon:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- HEADER --- */
         header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            max-width: 800px;
+            margin-inline: auto;
+            margin-top: 2rem;
         }
 
         .handwritten-accent {
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            transform: rotate(-3deg);
+            font-size: 2.5rem;
+            color: var(--accent-indigo);
+            transform: rotate(-2deg);
             display: inline-block;
-            margin-bottom: -5px;
-            opacity: 0.9;
+            margin-bottom: 0.5rem;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
             font-weight: 600;
-            letter-spacing: -0.03em;
-            color: var(--text-main);
-            margin-bottom: 1.2rem;
+            letter-spacing: -0.02em;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
             line-height: 1.1;
         }
 
+        .cursive-dev {
+            font-family: 'Caveat', cursive;
+            font-size: 1.15em; 
+            font-weight: 700;
+            color: var(--accent-indigo);
+            letter-spacing: 0;
+            display: inline-block;
+        }
+
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 550px;
-            margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.7;
             font-weight: 300;
         }
 
+        /* --- FILTERS --- */
         .filters {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 4rem;
+            gap: 1rem;
+            margin-bottom: 5rem;
         }
 
         .filter-btn {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
+            background: var(--filter-bg);
+            border: 1px solid var(--filter-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
             color: var(--text-muted);
             font-family: 'Outfit', sans-serif;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.4s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(12px);
         }
 
         .filter-btn:hover {
             transform: translateY(-2px);
-            background: var(--glass-highlight);
-            color: var(--text-main);
-            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--accent-indigo);
+            border-color: var(--accent-indigo);
         }
 
         .filter-btn.active {
-            background: var(--text-main);
-            border-color: var(--text-main);
+            background: var(--text-dark);
+            border-color: var(--text-dark);
             color: var(--bg-base);
-            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+            box-shadow: var(--surface-shadow);
         }
 
+        /* --- GRID & CARDS --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 3rem;
         }
 
         .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
+            background: var(--surface-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--surface-border);
+            border-radius: 32px; 
             padding: 1.25rem;
-            box-shadow: var(--glass-shadow);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--surface-shadow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: softFadeIn 0.8s forwards;
             text-decoration: none;
             color: inherit;
+            opacity: 0; /* Base state is invisible until animation plays */
+            will-change: transform, opacity;
+        }
+
+        /* Clean CSS Animation - No inline style conflicts */
+        .card.visible {
+            animation: floatIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .card.hidden { 
+            display: none !important; 
+        }
+
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            background: var(--glass-highlight);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--surface-shadow-hover);
         }
 
         .card-img-wrapper {
             width: 100%;
-            height: 240px;
-            border-radius: 20px;
+            height: 260px; 
+            border-radius: 24px;
             overflow: hidden;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
             position: relative;
-            background: #1E293B; /* Slate 800 fallback */
+            background: var(--img-fallback);
         }
 
-        /* --- Native CSS Scroll Snap Gallery --- */
         .carousel-wrapper {
             display: flex;
             overflow-x: auto;
@@ -179,9 +316,7 @@
             scrollbar-width: none; 
         }
         
-        .carousel-wrapper::-webkit-scrollbar {
-            display: none; 
-        }
+        .carousel-wrapper::-webkit-scrollbar { display: none; }
 
         .carousel-wrapper .card-img {
             flex: 0 0 100%;
@@ -191,20 +326,19 @@
 
         .scroll-hint {
             position: absolute;
-            bottom: 0.75rem;
-            right: 0.75rem;
-            background: rgba(15, 17, 21, 0.85);
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--scroll-hint-bg);
             backdrop-filter: blur(8px);
-            color: var(--text-main);
+            color: var(--accent-indigo);
             font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.35rem 0.8rem;
-            border-radius: 20px;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
             z-index: 5;
             pointer-events: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             letter-spacing: 0.5px;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--surface-border);
         }
 
         .card-img {
@@ -215,65 +349,248 @@
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card:hover .card-img {
-            transform: scale(1.04);
-        }
+        .card:hover .card-img { transform: scale(1.03); }
 
         .card-badge {
             position: absolute;
             top: 1rem;
             left: 1rem;
-            background: rgba(15, 17, 21, 0.8);
+            background: var(--badge-bg);
             backdrop-filter: blur(12px);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-family: 'Caveat', cursive;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border: 1px solid var(--glass-border);
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-indigo);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             z-index: 2;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border: 1px solid var(--surface-border);
         }
 
-        .card-content {
-            padding: 0 0.5rem 0.5rem;
-        }
+        .card-content { padding: 0 0.75rem 0.5rem; }
 
         .card-title {
-            font-size: 1.3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            line-height: 1.2;
         }
 
         .card-desc {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.6;
             font-weight: 300;
         }
 
-        @keyframes softFadeIn {
-            to { opacity: 1; transform: translateY(0); }
+        /* --- MODALS --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--surface-bg);
+            border: 1px solid var(--surface-border);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: var(--surface-shadow-hover);
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--filter-bg);
+            border: 1px solid var(--filter-border);
+            color: var(--text-dark);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-indigo);
+            border-color: var(--accent-indigo);
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .modal-content p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .modal-content li {
+            color: var(--text-dark);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--surface-border);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .modal-content li::before {
+            content: '⚡';
+            font-size: 0.8rem;
+        }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 1.5rem; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-dark);
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 0 4px rgba(67, 56, 202, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-indigo);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem;
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 56, 202, 0.3);
+        }
+
+        .security-notice {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .honeypot-field { display: none !important; }
+
+        .math-captcha {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--filter-bg);
+            padding: 1rem;
+            border-radius: 16px;
+            border: 1px solid var(--surface-border);
+        }
+        
+        .math-captcha input {
+            width: 80px;
+            padding: 0.5rem;
         }
 
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
-            .container { padding: 3rem 1.25rem; }
-            .card { padding: 1rem; border-radius: 24px; }
-            .card-img-wrapper { height: 200px; }
+            .container { padding: 4rem 1.5rem; }
+            h1 { font-size: 2.5rem; }
+            .top-controls { top: 1rem; right: 1rem; gap: 0.5rem; }
+            .control-icon { width: 38px; height: 38px; font-size: 1rem; }
+            .theme-toggle { height: 38px; font-size: 0.8rem; padding: 0 0.8rem; }
+            .modal-content { padding: 2rem; width: 95%; }
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
+
+    <div class="top-controls">
+        <div class="control-icon" id="open-info" data-tooltip="Our Capabilities">?</div>
+        <div class="control-icon" id="open-contact" data-tooltip="Start a Project">✉️</div>
+        
+        <button class="theme-toggle" id="theme-toggle">
+            <span id="theme-icon">☀️</span> Light Mode
+        </button>
+    </div>
 
     <div class="container">
         <header>
             <span class="handwritten-accent">engineered & designed by</span>
-            <h1>Blue Moon Studios Dev</h1>
-            <p class="subtitle">A highly curated selection of pixel-perfect interfaces, robust full-stack systems, and optimized multiplayer environments.</p>
+            <h1>Blue Moon Studios <span class="cursive-dev">Dev</span></h1>
+            <p class="subtitle">A curated portfolio of pixel-perfect interfaces, robust full-stack systems, and optimized digital environments.</p>
         </header>
 
         <nav class="filters" id="filters">
@@ -287,100 +604,184 @@
             </main>
     </div>
 
-    <script>
-        const projects = [
-            // --- HEAVY ENGINEERING FIRST: Full-Stack & Systems ---
-            {
-                id: 6, type: 'fullstack', badge: 'Admin Dashboard', title: 'Enterprise Management Dashboard', 
-                img: ['bluemoon-portal-1.jpg', 'bluemoon-portal-2.jpg'],
-                desc: 'Secure employee dashboard deployed with robust backend logic for managing complex client bookings and operations.'
-            },
-            {
-                id: 7, type: 'fullstack', badge: 'Travel Logistics', title: 'Custom Travel Logistics System', 
-                img: ['chicago-1.jpg', 'chicago-2.jpg', 'chicago-3.jpg'],
-                desc: 'Comprehensive data management tool featuring daily briefings, group expense tracking, and interactive map logging.'
-            },
-            {
-                id: 9, type: 'fullstack', badge: 'Client Portal', title: 'Secure Patient Intake Portal', 
-                img: ['massage-1.jpg', 'massage-2.jpg'],
-                desc: 'Secure digital portal engineered for clientele to seamlessly manage appointments and update sensitive intake forms.'
-            },
-            {
-                id: 8, type: 'fullstack', badge: 'Map Tech', title: 'Interactive Mapping Application', 
-                img: 'apex.jpg',
-                desc: 'Geospatial mapping and management system dynamically connecting users with local physical facilities.'
-            },
-
-            // --- COMPLEX LOGIC: Multiplayer & Game States ---
-            {
-                id: 10, type: 'games', badge: 'Party Game', title: 'Real-Time Multiplayer App', 
-                img: ['imposter-1.jpg', 'imposter-2.jpg'],
-                desc: 'Custom social deduction game featuring automated QR code lobby instancing and synchronized live round management.'
-            },
-            {
-                id: 11, type: 'games', badge: 'WebSockets', title: 'Browser-Based Party Game', 
-                img: ['witlash-1.jpg', 'witlash-2.jpg'], 
-                desc: 'Interactive, low-latency multiplayer game allowing large lobbies to connect and compete via rapid data delivery.'
-            },
-
-            // --- THE VISUAL LAYER: UI/UX Front-End Sites ---
-            {
-                id: 1, type: 'frontend', badge: 'E-Commerce', title: 'Premium E-Commerce Platform', 
-                img: 'bluemoon-store.jpg', 
-                desc: 'Modern retail showcase featuring highly optimized, elegant layouts tailored for product sales and digital downloads.'
-            },
-            {
-                id: 2, type: 'frontend', badge: 'Landing Page', title: 'High-Conversion Landing Page', 
-                img: 'premium-flavor.jpg',
-                desc: 'Aggressively optimized, single-page marketing architecture engineered specifically for B2B lead generation.'
-            },
-            {
-                id: 3, type: 'frontend', badge: 'Brand Identity', title: 'Boutique Retail Website', 
-                img: 'sugarbliss.jpg',
-                desc: 'Playful, vibrant user interface design for a local business, prioritizing brand identity and visual engagement.'
-            },
-            {
-                id: 5, type: 'frontend', badge: 'Athletic UI', title: 'Fitness Studio Web Presence', 
-                img: 'koh-muay-thai.jpg',
-                desc: 'Striking, action-oriented web design optimizing the user funnel directly toward class scheduling and trials.'
-            },
-            {
-                id: 4, type: 'frontend', badge: 'Service Portal', title: 'Service Booking Website', 
-                img: 'nailstudio.jpg',
-                desc: 'Warm and inviting web architecture highlighting local services and streamlining customer onboarding workflows.'
-            },
+    <div class="modal-overlay" id="modal-info">
+        <div class="modal-content">
+            <button class="close-btn" data-close="modal-info">&times;</button>
+            <span class="handwritten-accent" style="font-size: 1.8rem;">who we are</span>
+            <h2>Digital Architecture, Redefined.</h2>
+            <p>Blue Moon Studios Dev is a boutique digital architecture firm. Most agencies build digital brochures; we build digital engines. We bridge the gap between premium visual design and heavy-duty software engineering.</p>
             
-            // --- EXPERIMENTAL / FUN STUFF AT THE BOTTOM ---
-            {
-                id: 12, type: 'fullstack', badge: 'Gamified Finance', title: 'Retro Personal Finance App', 
-                img: 'fire-tracker.jpg', 
-                desc: 'A gamified Financial Independence (FIRE) budget tracker featuring a custom 8-bit retro UI, quest-based savings goals, and live terminal market integrations.'
-            }
+            <ul>
+                <li><strong>High-Conversion Frontend Design:</strong> Bespoke landing pages engineered to drive B2B and B2C sales.</li>
+                <li><strong>Enterprise Dashboards:</strong> Custom operational logic to automate and scale your daily workflows.</li>
+                <li><strong>Secure Client Portals:</strong> Secure and friction-free onboarding environments.</li>
+                <li><strong>Real-Time Systems:</strong> Low-latency WebSockets and mapping API integrations.</li>
+            </ul>
+            
+            <p>Stop wrestling with out-of-the-box tools. <br>Let's build the exact system your business needs to scale.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-contact">
+        <div class="modal-content">
+            <button class="close-btn" data-close="modal-contact">&times;</button>
+            <span class="handwritten-accent" style="font-size: 1.8rem;">let's build</span>
+            <h2>Project Inquiry.</h2>
+            <p style="margin-bottom: 2rem;">Fill out the scope of your project below. Our system will securely format your request for our architectural team.</p>
+
+            <form id="inquiry-form">
+                <input type="text" id="trap_url" class="honeypot-field" autocomplete="off" tabindex="-1">
+
+                <div class="form-group">
+                    <label for="f-name">Full Name</label>
+                    <input type="text" id="f-name" class="form-control" required placeholder="Jane Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="f-biz">Business / Company Name</label>
+                    <input type="text" id="f-biz" class="form-control" required placeholder="Acme Corp">
+                </div>
+
+                <div class="form-group">
+                    <label for="f-budget">Estimated Budget Scope</label>
+                    <select id="f-budget" class="form-control" required>
+                        <option value="" disabled selected>Select a range...</option>
+                        <option value="$2,500 - $5,000 (Frontend / UI)">$2,500 - $5,000 (Frontend / UI)</option>
+                        <option value="$5,000 - $10,000 (Full-Stack Portal)">$5,000 - $10,000 (Full-Stack Portal)</option>
+                        <option value="$10,000+ (Enterprise System)">$10,000+ (Enterprise System)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="f-msg">Project Details & Pain Points</label>
+                    <textarea id="f-msg" class="form-control" required placeholder="We are currently losing 10 hours a week to manual data entry..."></textarea>
+                </div>
+
+                <div class="form-group math-captcha">
+                    <label for="f-math" style="margin-bottom: 0;">Security Check: What is 5 + 4?</label>
+                    <input type="text" id="f-math" class="form-control" required placeholder="?">
+                </div>
+
+                <button type="submit" class="submit-btn">Initialize Request</button>
+                
+                <p class="security-notice">
+                    🔒 <strong>Data Disclaimer:</strong> By proceeding, your local email client will open securely with the provided data pre-formatted. We do not store your data on intermediary web servers. 
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ARCHITECTURE ---
+        const projects = [
+            { id: 6, type: 'fullstack', badge: 'Admin Dashboard', title: 'Enterprise Management Dashboard', img: ['bluemoon-portal-1.jpg', 'bluemoon-portal-2.jpg'], desc: 'Secure employee dashboard deployed with robust backend logic for managing complex client bookings and operations.' },
+            { id: 7, type: 'fullstack', badge: 'Travel Logistics', title: 'Custom Travel Logistics System', img: ['chicago-1.jpg', 'chicago-2.jpg', 'chicago-3.jpg'], desc: 'Comprehensive data management tool featuring daily briefings, group expense tracking, and interactive map logging.' },
+            { id: 9, type: 'fullstack', badge: 'Client Portal', title: 'Secure Patient Intake Portal', img: ['massage-1.jpg', 'massage-2.jpg'], desc: 'Secure digital portal engineered for clientele to seamlessly manage appointments and update sensitive intake forms.' },
+            { id: 8, type: 'fullstack', badge: 'Map Tech', title: 'Interactive Mapping Application', img: 'apex.jpg', desc: 'Geospatial mapping and management system dynamically connecting users with local physical facilities.' },
+            { id: 10, type: 'games', badge: 'Party Game', title: 'Real-Time Multiplayer App', img: ['imposter-1.jpg', 'imposter-2.jpg'], desc: 'Custom social deduction game featuring automated QR code lobby instancing and synchronized live round management.' },
+            { id: 11, type: 'games', badge: 'WebSockets', title: 'Browser-Based Party Game', img: ['witlash-1.jpg', 'witlash-2.jpg'], desc: 'Interactive, low-latency multiplayer game allowing large lobbies to connect and compete via rapid data delivery.' },
+            { id: 1, type: 'frontend', badge: 'Landing Page', title: 'Premium E-Commerce Platform', img: 'bluemoon-store.jpg', desc: 'Modern retail showcase featuring highly optimized, elegant layouts tailored for product sales and digital downloads.' },
+            { id: 2, type: 'frontend', badge: 'Advertisement Page', title: 'High-Conversion Landing Page', img: 'premium-flavor.jpg', desc: 'Aggressively optimized, single-page marketing architecture engineered specifically for B2B lead generation.' },
+            { id: 3, type: 'frontend', badge: 'Brand Identity', title: 'Boutique Retail Website', img: 'sugarbliss.jpg', desc: 'Playful, vibrant user interface design for a local business, prioritizing brand identity and visual engagement.' },
+            { id: 5, type: 'frontend', badge: 'Athletic UI', title: 'Fitness Studio Web Presence', img: 'koh-muay-thai.jpg', desc: 'Striking, action-oriented web design optimizing the user funnel directly toward class scheduling and trials.' },
+            { id: 4, type: 'frontend', badge: 'Service Portal', title: 'Service Booking Website', img: 'nailstudio.jpg', desc: 'Warm and inviting web architecture highlighting local services and streamlining customer onboarding workflows.' },
+            { id: 12, type: 'fullstack', badge: 'Gamified Finance', title: 'Retro Personal Finance App', img: 'fire-tracker.jpg', desc: 'A gamified Financial Independence (FIRE) budget tracker featuring a custom 8-bit retro UI, quest-based savings goals, and live terminal market integrations.' }
         ];
 
+        // --- MODAL LOGIC ---
+        const btnInfo = document.getElementById('open-info');
+        const btnContact = document.getElementById('open-contact');
+        const modalInfo = document.getElementById('modal-info');
+        const modalContact = document.getElementById('modal-contact');
+        const closeBtns = document.querySelectorAll('.close-btn');
+
+        btnInfo.addEventListener('click', () => modalInfo.classList.add('active'));
+        btnContact.addEventListener('click', () => modalContact.classList.add('active'));
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById(btn.getAttribute('data-close')).classList.remove('active');
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // --- FORM DISPATCHER & BOT PROTECTION ---
+        document.getElementById('inquiry-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (document.getElementById('trap_url').value !== "") return;
+            
+            const mathAns = document.getElementById('f-math').value.trim();
+            if (mathAns !== "9") {
+                alert("Security Check Failed. Please answer the math question correctly.");
+                return;
+            }
+
+            const name = encodeURIComponent(document.getElementById('f-name').value.trim());
+            const biz = encodeURIComponent(document.getElementById('f-biz').value.trim());
+            const budget = encodeURIComponent(document.getElementById('f-budget').value);
+            const msg = encodeURIComponent(document.getElementById('f-msg').value.trim());
+
+            const subject = `Enterprise Inquiry: ${biz} - ${name}`;
+            const body = `CLIENT PROFILE%0D%0A-------------------%0D%0AName: ${name}%0D%0ACompany: ${biz}%0D%0ABudget Scope: ${budget}%0D%0A%0D%0APROJECT BRIEF%0D%0A-------------------%0D%0A${msg}%0D%0A%0D%0A%0D%0A[Sent via Blue Moon Studios Dev Secure Portal]`;
+
+            window.location.href = `mailto:bluemoonstudiosservices@gmail.com?subject=${subject}&body=${body}`;
+            
+            modalContact.classList.remove('active');
+            this.reset();
+        });
+
+        // --- THEME TOGGLE LOGIC ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        let currentTheme = localStorage.getItem("theme");
+        
+        if (currentTheme === "light") {
+            document.body.removeAttribute("data-theme");
+            themeToggleBtn.innerHTML = '<span id="theme-icon">🌙</span> Dark Mode';
+        } else {
+            document.body.setAttribute("data-theme", "dark");
+            themeToggleBtn.innerHTML = '<span id="theme-icon">☀️</span> Light Mode';
+        }
+
+        themeToggleBtn.addEventListener("click", function() {
+            if (document.body.getAttribute("data-theme") === "dark") {
+                document.body.removeAttribute("data-theme");
+                themeToggleBtn.innerHTML = '<span id="theme-icon">🌙</span> Dark Mode';
+                localStorage.setItem("theme", "light");
+            } else {
+                document.body.setAttribute("data-theme", "dark");
+                themeToggleBtn.innerHTML = '<span id="theme-icon">☀️</span> Light Mode';
+                localStorage.setItem("theme", "dark");
+            }
+        });
+
+        // --- GRID RENDER & FAST-FILTER ENGINE ---
         const grid = document.getElementById('portfolio-grid');
         const filters = document.querySelectorAll('.filter-btn');
 
-        function renderGrid(filterType = 'all') {
-            grid.innerHTML = '';
-            const filtered = filterType === 'all' ? projects : projects.filter(p => p.type === filterType);
-
-            filtered.forEach((item, index) => {
-                const delay = index * 0.06;
-                
+        function initializeGrid() {
+            let htmlPayload = '';
+            
+            projects.forEach((item) => {
                 let imgMarkup = '';
                 let wrapperClass = 'card-img-wrapper';
 
                 if (Array.isArray(item.img)) {
                     wrapperClass += ' carousel-wrapper';
-                    imgMarkup = item.img.map(src => `<img src="${src}" alt="${item.title}" class="card-img" onerror="this.style.display='none';">`).join('');
-                    imgMarkup += `<div class="scroll-hint">Scroll ➔</div>`;
+                    imgMarkup = item.img.map(src => `<img src="${src}" alt="${item.title}" class="card-img" loading="lazy" decoding="async" onerror="this.style.display='none';">`).join('');
+                    imgMarkup += `<div class="scroll-hint">Swipe ➔</div>`;
                 } else {
-                    imgMarkup = `<img src="${item.img}" alt="${item.title}" class="card-img" onerror="this.style.display='none';">`;
+                    imgMarkup = `<img src="${item.img}" alt="${item.title}" class="card-img" loading="lazy" decoding="async" onerror="this.style.display='none';">`;
                 }
 
-                const html = `
-                    <div class="card" style="animation-delay: ${delay}s">
+                htmlPayload += `
+                    <div class="card" data-category="${item.type}">
                         <div class="${wrapperClass}">
                             <span class="card-badge">${item.badge}</span>
                             ${imgMarkup}
@@ -391,17 +792,42 @@
                         </div>
                     </div>
                 `;
-                grid.insertAdjacentHTML('beforeend', html);
+            });
+
+            grid.innerHTML = htmlPayload;
+            applyFilter('all'); 
+        }
+
+        function applyFilter(filterType) {
+            const allCards = document.querySelectorAll('.card');
+            let visibleIndex = 0;
+
+            allCards.forEach((card) => {
+                if (filterType === 'all' || card.getAttribute('data-category') === filterType) {
+                    card.classList.remove('hidden');
+                    
+                    // Force DOM reflow to cleanly restart the animation
+                    card.classList.remove('visible');
+                    void card.offsetWidth; 
+                    
+                    card.style.animationDelay = `${visibleIndex * 0.05}s`;
+                    card.classList.add('visible');
+                    visibleIndex++;
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('visible');
+                }
             });
         }
 
-        renderGrid();
+        // Initialize immediately to prevent loading errors
+        initializeGrid();
 
         filters.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 filters.forEach(f => f.classList.remove('active'));
                 e.target.classList.add('active');
-                renderGrid(e.target.dataset.filter);
+                applyFilter(e.target.dataset.filter);
             });
         });
     </script>
