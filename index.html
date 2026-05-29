@@ -15,7 +15,7 @@
         /* --- LIGHT MODE TOKENS (Default) --- */
         :root {
             --bg-base: #F8F9FA;
-            --bg-gradient-spot: rgba(2, 132, 199, 0.03); /* Swapped to blue tint */
+            --bg-gradient-spot: rgba(2, 132, 199, 0.03); 
             
             --surface-bg: rgba(255, 255, 255, 0.85);
             --surface-border: rgba(255, 255, 255, 1);
@@ -24,7 +24,7 @@
             
             --text-dark: #1E293B;
             --text-muted: #64748B;
-            --accent-blue: #0284C7; /* Replaced Indigo */
+            --accent-blue: #0284C7; 
             --accent-glow: rgba(2, 132, 199, 0.3);
             
             --filter-bg: #FFFFFF;
@@ -39,8 +39,8 @@
 
         /* --- DARK MODE TOKENS --- */
         [data-theme="dark"] {
-            --bg-base: #0B111A; /* Deeper slate for blue contrast */
-            --bg-gradient-spot: rgba(56, 189, 248, 0.05); /* Swapped to sky blue */
+            --bg-base: #0B111A; 
+            --bg-gradient-spot: rgba(56, 189, 248, 0.05); 
             
             --surface-bg: rgba(255, 255, 255, 0.03);
             --surface-border: rgba(255, 255, 255, 0.08);
@@ -49,7 +49,7 @@
             
             --text-dark: #F8FAFC;
             --text-muted: #94A3B8;
-            --accent-blue: #38BDF8; /* Electric Sky Blue */
+            --accent-blue: #38BDF8; 
             --accent-glow: rgba(56, 189, 248, 0.4);
             
             --filter-bg: rgba(255, 255, 255, 0.03);
@@ -157,7 +157,7 @@
             transform: translateY(0);
         }
 
-        /* Theme Toggle Button (Adjusted for Flexbox) */
+        /* Theme Toggle Button */
         .theme-toggle {
             background: var(--surface-bg);
             border: 1px solid var(--surface-border);
@@ -215,7 +215,6 @@
             transition: color 0.5s ease;
         }
 
-        /* Cursive styling specifically for "Dev" */
         .cursive-dev {
             font-family: 'Caveat', cursive;
             font-size: 1.15em; 
@@ -294,13 +293,24 @@
             opacity: 0;
             transform: translateY(30px);
             animation: floatUp 0.8s forwards;
-            text-decoration: none;
+            text-decoration: none; /* Crucial since cards are now links */
             color: inherit;
         }
 
         .card:hover {
             transform: translateY(-8px);
             box-shadow: var(--surface-shadow-hover);
+        }
+
+        /* Add hover indicator for links */
+        a.card { cursor: pointer; }
+        
+        a.card .card-title {
+            transition: color 0.3s ease;
+        }
+        
+        a.card:hover .card-title {
+            color: var(--accent-blue);
         }
 
         .card-img-wrapper {
@@ -697,16 +707,19 @@
             {
                 id: 6, type: 'fullstack', badge: 'Admin Dashboard', title: 'Enterprise Management Dashboard', 
                 img: ['bluemoon-portal-1.jpg', 'bluemoon-portal-2.jpg'],
+                link: 'https://technoboywonder.shinyapps.io/portal/',
                 desc: 'Secure employee dashboard deployed with robust backend logic for managing complex client bookings and operations.'
             },
             {
                 id: 7, type: 'fullstack', badge: 'Travel Logistics', title: 'Custom Travel Logistics System', 
                 img: ['chicago-1.jpg', 'chicago-2.jpg', 'chicago-3.jpg'],
+                link: 'https://technoboywonder.shinyapps.io/chi26/',
                 desc: 'Comprehensive data management tool featuring daily briefings, group expense tracking, and interactive map logging.'
             },
             {
                 id: 9, type: 'fullstack', badge: 'Client Portal', title: 'Secure Patient Intake Portal', 
                 img: ['massage-1.jpg', 'massage-2.jpg'],
+                link: 'https://login.bmsportal.org',
                 desc: 'Secure digital portal engineered for clientele to seamlessly manage appointments and update sensitive intake forms.'
             },
             {
@@ -719,28 +732,45 @@
             {
                 id: 10, type: 'games', badge: 'Party Game', title: 'Real-Time Multiplayer App', 
                 img: ['imposter-1.jpg', 'imposter-2.jpg'],
+                link: 'https://bluemoonstudios.shinyapps.io/mafia/',
                 desc: 'Custom social deduction game featuring automated QR code lobby instancing and synchronized live round management.'
             },
             {
                 id: 11, type: 'games', badge: 'WebSockets', title: 'Browser-Based Party Game', 
                 img: ['witlash-1.jpg', 'witlash-2.jpg'], 
+                link: 'https://bluemoonstudios.shinyapps.io/kevinbox/',
                 desc: 'Interactive, low-latency multiplayer game allowing large lobbies to connect and compete via rapid data delivery.'
+            },
+            {
+                id: 13, type: 'games', badge: 'Color Game', title: 'ColorBattle', 
+                img: 'colorbattle.jpg',
+                link: 'https://pf-innovations.shinyapps.io/colorsync/',
+                desc: 'A vibrant party game designed for a shared screen. A central display hosts the match while players connect seamlessly using their smartphones as controllers.'
+            },
+            {
+                id: 14, type: 'games', badge: 'Word Game', title: 'WordBattle', 
+                img: 'wordbattle.jpg',
+                link: 'https://bmsdev.shinyapps.io/wordles/',
+                desc: 'An interactive word-based multiplayer expedition. Features include secure 4-letter room codes, playful avatar selection, and real-time player syncing.'
             },
 
             // FRONTEND & UI/UX
             {
                 id: 1, type: 'frontend', badge: 'Landing Page', title: 'Premium E-Commerce Platform', 
                 img: 'bluemoon-store.jpg', 
+                link: 'https://bluemoonstudios.store/',
                 desc: 'Modern retail showcase featuring highly optimized, elegant layouts tailored for product sales and digital downloads.'
             },
             {
                 id: 2, type: 'frontend', badge: 'Advertisement Page', title: 'High-Conversion Landing Page', 
                 img: 'premium-flavor.jpg',
+                link: 'https://premiumflavorvending.com/',
                 desc: 'Aggressively optimized, single-page marketing architecture engineered specifically for B2B lead generation.'
             },
             {
                 id: 3, type: 'frontend', badge: 'Brand Identity', title: 'Boutique Retail Website', 
                 img: 'sugarbliss.jpg',
+                link: 'https://kevindduy.github.io/sugarbliss/',
                 desc: 'Playful, vibrant user interface design for a local business, prioritizing brand identity and visual engagement.'
             },
             {
@@ -767,12 +797,10 @@
         const themeIcon = document.getElementById('theme-icon');
         let currentTheme = localStorage.getItem("theme");
         
-        // Explicitly check if they previously wanted light mode, otherwise keep default dark
         if (currentTheme === "light") {
             document.body.removeAttribute("data-theme");
             themeToggleBtn.innerHTML = '<span id="theme-icon">🌙</span> Dark Mode';
         } else {
-            // It's already dark via the body tag, just sync the button
             document.body.setAttribute("data-theme", "dark");
             themeToggleBtn.innerHTML = '<span id="theme-icon">☀️</span> Light Mode';
         }
@@ -811,8 +839,12 @@
                     imgMarkup = `<img src="${item.img}" alt="${item.title}" class="card-img" onerror="this.style.display='none';">`;
                 }
 
+                // Determine if this card should be an anchor tag or a div
+                const tag = item.link ? 'a' : 'div';
+                const href = item.link ? ` href="${item.link}" target="_blank" rel="noopener noreferrer"` : '';
+
                 const html = `
-                    <div class="card" style="animation-delay: ${delay}s">
+                    <${tag} class="card" style="animation-delay: ${delay}s"${href}>
                         <div class="${wrapperClass}">
                             <span class="card-badge">${item.badge}</span>
                             ${imgMarkup}
@@ -821,7 +853,7 @@
                             <h3 class="card-title">${item.title}</h3>
                             <p class="card-desc">${item.desc}</p>
                         </div>
-                    </div>
+                    </${tag}>
                 `;
                 grid.insertAdjacentHTML('beforeend', html);
             });
