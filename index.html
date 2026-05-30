@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blue Moon Studios Dev | Portfolio</title>
+    <title>Blue Moon Studios Dev | Catalog</title>
     
     <link rel="icon" type="image/png" href="logo.png">
     
@@ -293,7 +293,7 @@
             opacity: 0;
             transform: translateY(30px);
             animation: floatUp 0.8s forwards;
-            text-decoration: none; /* Crucial since cards are now links */
+            text-decoration: none;
             color: inherit;
         }
 
@@ -302,7 +302,6 @@
             box-shadow: var(--surface-shadow-hover);
         }
 
-        /* Add hover indicator for links */
         a.card { cursor: pointer; }
         
         a.card .card-title {
@@ -592,6 +591,23 @@
             padding: 0.5rem;
         }
 
+        /* --- Welcome Modal Specific Styling --- */
+        .welcome-modal-content {
+            text-align: center;
+        }
+        
+        .welcome-modal-content a {
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .welcome-modal-content a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
             .container { padding: 4rem 1.5rem; }
@@ -617,9 +633,9 @@
 
     <div class="container">
         <header>
-            <span class="handwritten-accent">engineered & designed by</span>
-            <h1>Blue Moon Studios <span class="cursive-dev">Dev</span></h1>
-            <p class="subtitle">A curated portfolio of pixel-perfect interfaces, robust full-stack systems, and optimized digital environments.</p>
+            <span class="handwritten-accent">developed & designed by</span>
+            <h1>Blue Moon Studios <span class="cursive-dev">Catalog</span></h1>
+            <p class="subtitle">Custom web development, scalable software solutions, and digital event technology for growing businesses.</p>
         </header>
 
         <nav class="filters" id="filters">
@@ -627,10 +643,26 @@
             <button class="filter-btn" data-filter="fullstack">Applications</button>
             <button class="filter-btn" data-filter="games">Multiplayer</button>
             <button class="filter-btn" data-filter="frontend">Web Design</button>
+            <button class="filter-btn" data-filter="store">Photobooth</button>
         </nav>
 
         <main class="grid" id="portfolio-grid">
             </main>
+    </div>
+
+    <div class="modal-overlay" id="modal-welcome">
+        <div class="modal-content welcome-modal-content">
+            <button class="close-btn" data-close="modal-welcome">&times;</button>
+            <span class="handwritten-accent" style="font-size: 2.2rem;">hello!</span>
+            <h2 style="margin-bottom: 1.5rem;">Glad you're here.</h2>
+            <p>Hey! If you're here for the photobooth, click the <strong>Photobooth</strong> tab. If you're ready to book—<a href="#">click here</a>—otherwise, feel free to look around!</p>
+            
+            <hr style="border: none; border-top: 1px solid var(--surface-border); margin: 2rem 0; opacity: 0.5;">
+            
+            <p style="font-size: 0.95rem;">We build apps and systems for small & starting businesses at extremely competitive rates. We're a growing software as a service business and would love to help you grow! We offer trials with our software and consultation to fit your specific needs!</p>
+            
+            <button class="submit-btn" style="margin-top: 1.5rem; width: auto; padding: 0.8rem 2.5rem;" data-close="modal-welcome">Explore Catalog</button>
+        </div>
     </div>
 
     <div class="modal-overlay" id="modal-info">
@@ -674,10 +706,10 @@
                 <div class="form-group">
                     <label for="f-budget">Estimated Budget Scope</label>
                     <select id="f-budget" class="form-control" required>
-                        <option value="" disabled selected>Select a range...</option>
-                        <option value="$2,500 - $5,000 (Frontend / UI)">$2,500 - $5,000 (Frontend / UI)</option>
-                        <option value="$5,000 - $10,000 (Full-Stack Portal)">$5,000 - $10,000 (Full-Stack Portal)</option>
-                        <option value="$10,000+ (Enterprise System)">$10,000+ (Enterprise System)</option>
+                        <option value="" disabled selected>Select a scope...</option>
+                        <option value="Small Scale (Frontend / UI)">Small Scale (Frontend / UI)</option>
+                        <option value="Medium Scale (Full-Stack Portal)">Medium Scale (Full-Stack Portal)</option>
+                        <option value="Enterprise Scale (Complex System)">Enterprise Scale (Complex System)</option>
                     </select>
                 </div>
 
@@ -789,6 +821,28 @@
                 id: 12, type: 'fullstack', badge: 'Gamified Finance', title: 'Retro Personal Finance App', 
                 img: 'fire-tracker.jpg', 
                 desc: 'A gamified Financial Independence (FIRE) budget tracker featuring a custom 8-bit retro UI, quest-based savings goals, and live terminal market integrations.'
+            },
+
+            // DIGITAL STORE PRODUCTS
+            {
+                id: 15, type: 'store', badge: 'Event Tech', title: 'Custom Event Countdown Timer', 
+                img: 'count.png', 
+                desc: 'Professional-grade custom countdown timer designed for your specific event needs. No industry tax, just high-end digital resources.'
+            },
+            {
+                id: 16, type: 'store', badge: 'Event Website', title: 'Custom Event Website', 
+                img: 'site.png', 
+                desc: 'Fully personalized, responsive event website. We design the digital journey to your event without the inflated corporate price tags.'
+            },
+            {
+                id: 17, type: 'store', badge: 'Digital Asset', title: 'Custom Event Overlay', 
+                img: 'overlay.png', 
+                desc: 'Sleek custom event overlay. Perfect for photo booths, streams, or live digital displays.'
+            },
+            {
+                id: 18, type: 'store', badge: 'Print Media', title: 'Custom Event Prints', 
+                img: 'prints.png', 
+                desc: 'Premium quality custom event prints. We combine tech and art to bring your physical event assets to life.'
             }
         ];
 
@@ -869,12 +923,20 @@
             });
         });
 
-        // --- NEW MODAL & FORM LOGIC APPENDED HERE ---
+        // --- MODAL & FORM LOGIC ---
         const btnInfo = document.getElementById('open-info');
         const btnContact = document.getElementById('open-contact');
         const modalInfo = document.getElementById('modal-info');
         const modalContact = document.getElementById('modal-contact');
-        const closeBtns = document.querySelectorAll('.close-btn');
+        const modalWelcome = document.getElementById('modal-welcome');
+        const closeBtns = document.querySelectorAll('.close-btn, .submit-btn[data-close]');
+
+        // Trigger welcome modal on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if(modalWelcome) {
+                modalWelcome.classList.add('active');
+            }
+        });
 
         if(btnInfo) btnInfo.addEventListener('click', () => modalInfo.classList.add('active'));
         if(btnContact) btnContact.addEventListener('click', () => modalContact.classList.add('active'));
