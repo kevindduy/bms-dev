@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blue Moon Studios — Here - I made you an AI agent.</title>
+<title>Blue Moon Studios — Here. I made you an AI agent.</title>
 <meta name="description" content="Watch an AI agent fill out a form, chase a quote, and organize an inbox. Then get a teardown of your own business. Built by Kevin in New Port Richey, FL.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,6 +55,11 @@ header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid
 .nav-links a.nav-link:hover{color:var(--ink)}
 .nav-links .btn{padding:10px 20px}
 @media(max-width:860px){.nav-links a.nav-link{display:none}}
+@media(max-width:600px){
+  .nav{height:60px}
+  .brand-script{font-size:1.5rem;white-space:nowrap}
+  .nav-links .btn{white-space:nowrap;padding:9px 14px;font-size:.82rem}
+}
 
 /* hero */
 .hero{padding:72px 0;background:var(--bg-grey);border-bottom:1px solid var(--border)}
@@ -200,7 +205,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 .promise strong{color:var(--blue-dark)}
 
 /* pricing */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:stretch}
 .price{background:#fff;border:1px solid var(--border);border-radius:10px;padding:36px 30px;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .price.featured{border:2px solid var(--blue);box-shadow:0 8px 24px rgba(0,123,255,.12);position:relative}
 .pop-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 16px;border-radius:20px;white-space:nowrap}
@@ -221,8 +226,6 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 .work-cta{text-align:center;margin-top:32px}
 @media(max-width:900px){.work-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.work-grid{grid-template-columns:1fr}}
-.work-link{font-size:.9rem;margin-bottom:18px}
-.work-link a{color:var(--blue);font-weight:600}
 .retainer{margin-top:20px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:32px;display:grid;grid-template-columns:1fr 1.4fr auto;gap:28px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .ret-main h4{font-size:1.25rem;margin-bottom:6px}
 .ret-main p{color:var(--muted);font-size:.93rem}
@@ -467,7 +470,6 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
           <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2.5 8.5l3.5 3.5 7-8" stroke="#2563EB" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Forms and dashboards shaped around your team's real work</li>
           <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2.5 8.5l3.5 3.5 7-8" stroke="#2563EB" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Search setup so Google can actually understand your pages</li>
         </ul>
-        <p class="work-link">Recent website work: <a href="https://bluemoonstudios.store/" target="_blank" rel="noopener">bluemoonstudios.store</a></p>
         <p class="fit"><strong>Good fit if</strong> your current site is unclear, or your team keeps entering the same information in multiple places.</p>
       </div>
     </div>
@@ -590,24 +592,28 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
       <div class="price featured reveal">
         <span class="pop-badge">Most start here</span>
         <h4>The teardown</h4>
-        <p class="amount">$300 &ndash; $500</p>
+        <p class="amount">$100</p>
         <p>I go through how customer messages move through your business, find where jobs are slipping, and hand you the fix list in writing.</p>
         <p class="fine">Credited toward the build if we move ahead.</p>
         <a class="btn btn-primary" href="#agent">Start with the teardown</a>
       </div>
       <div class="price reveal">
+        <h4>AI agent</h4>
+        <p class="amount">Quoted</p>
+        <p>Answers customer questions, chases quotes, and drafts everything for your approval. Nothing sends without your say-so.</p>
+        <p class="fine">Every agent build, including SUPER AGENT, quoted after the teardown.</p>
+      </div>
+      <div class="price reveal">
         <h4>Website + domain</h4>
-        <p class="amount">$1,200 &ndash; $1,500</p>
+        <p class="amount">$500</p>
         <p>A focused, mobile-friendly website with a clear path to call, book, or request a quote.</p>
-        <p class="fine">One-time build. You own the domain.</p>
-        <a class="btn btn-outline" href="#agent">Ask about it</a>
+        <p class="fine">Up to $1,500 with search setup and ranking work. You own the domain.</p>
       </div>
       <div class="price reveal">
         <h4>Custom app + database</h4>
         <p class="amount">$1,500 &ndash; $3,000+</p>
         <p>Records, statuses, ownership, and reporting. Added when the core project needs it.</p>
         <p class="fine">Quoted in writing before any work starts.</p>
-        <a class="btn btn-outline" href="#agent">Ask about it</a>
       </div>
     </div>
     <div class="retainer reveal">
@@ -616,14 +622,12 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
         <p>Once it is live, I keep it running and keep making it better. Cancel anytime.</p>
       </div>
       <div class="ret-tiers">
-        <div class="ret-tier"><b>$250/mo</b><span>Keep it running: small tweaks, priority email support, monthly check-in.</span></div>
-        <div class="ret-tier"><b>$500/mo</b><span>Keep it growing: everything above, plus one new automation a month and phone support.</span></div>
+        <div class="ret-tier"><b>$100/mo</b><span>Keep it running and growing: small tweaks, priority email support, monthly check-in, and one new automation a month.</span></div>
       </div>
-      <a class="btn btn-outline" href="#agent">Ask about support</a>
     </div>
     <div class="scope-note reveal">
       <strong>Scope note</strong>
-      The AI agent build is quoted after the teardown, once I can see the actual work. Search setup can be added for $500 to $800. Exact scope, timeline, and ongoing costs are confirmed before the build starts.
+      SUPER AGENT builds are quoted after the teardown, once I can see the actual work. Exact scope, timeline, and ongoing costs are confirmed before the build starts.
     </div>
   </div>
 </section>
@@ -632,7 +636,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
 <section class="cta" id="contact">
   <div class="wrap">
     <h2 class="reveal">Start with the <span class="script-accent">teardown.</span></h2>
-    <p class="reveal">$300 to $500. I go through how customer messages move through your business, find where jobs are slipping, and send back the fix list in writing. Credited toward the build if we move ahead.</p>
+    <p class="reveal">$100. I go through how customer messages move through your business, find where jobs are slipping, and send back the fix list in writing. Credited toward the build if we move ahead.</p>
     <div class="cta-btns reveal">
       <a class="btn btn-white" href="#agent">Request the teardown</a>
       <a class="btn btn-outline" href="mailto:bluemoonstudiosservices@gmail.com?subject=Teardown%20for%20my%20business" style="color:#fff;border-color:#fff">Email me directly</a>
