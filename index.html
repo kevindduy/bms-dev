@@ -55,11 +55,22 @@ header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid
 .nav-links a.nav-link{color:var(--muted);text-decoration:none;font-size:.95rem}
 .nav-links a.nav-link:hover{color:var(--ink)}
 .nav-links .btn{padding:10px 20px}
+.nav-mail{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--border);border-radius:6px;color:var(--blue);text-decoration:none;flex:none}
+.nav-mail:hover{background:var(--blue-light)}
+.nav-mail svg{display:block}
+.cta-btns .btn{display:inline-flex;align-items:center;gap:9px}
+.hero-ctas .btn{display:inline-flex;align-items:center;gap:9px}
+.foot-base a{color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.foot-base a:hover{color:var(--blue)}
 @media(max-width:860px){.nav-links a.nav-link{display:none}}
 @media(max-width:600px){
+  header .wrap{padding:0 16px}
   .nav{height:60px}
-  .brand-script{font-size:1.5rem;white-space:nowrap}
-  .nav-links .btn{white-space:nowrap;padding:9px 14px;font-size:.82rem}
+  .brand-script{font-size:1.35rem;white-space:nowrap}
+  .nav-links{gap:6px}
+  .nav-links .btn{white-space:nowrap;padding:8px 11px;font-size:.8rem}
+  .nav-mail{width:32px;height:32px}
+  .nav-mail svg{width:15px;height:15px}
 }
 
 /* hero */
@@ -265,7 +276,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
       <a class="nav-link" href="#night">Night shift</a>
       <a class="nav-link" href="#work">Work</a>
       <a class="nav-link" href="#pricing">Pricing</a>
-      <a class="btn btn-primary" href="#agent">Get the teardown</a>
+      <a class="btn btn-primary" href="mailto:bluemoonstudiosservices@gmail.com?subject=Teardown%20for%20my%20business">Get the teardown</a>
     </nav>
   </div>
 </header>
@@ -280,7 +291,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
       <p class="hero-sub reveal">It does the evening work: fills out the boring stuff, chases quotes, follows up on leads. Watch it draft a teardown request right now, then make it yours.</p>
       <div class="hero-ctas reveal">
         <button class="btn btn-primary" id="heroWatch">Watch the agent fill this out</button>
-        <a class="btn btn-outline" href="#night">See the night shift</a>
+        <a class="btn btn-outline" href="https://www.instagram.com/bluemoonstudios.ai/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>DM us on Instagram</a>
       </div>
       <p class="hero-note reveal">Demo with made-up data. Built by Kevin in New Port Richey, FL.</p>
     </div>
@@ -593,7 +604,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
       <div class="price featured reveal">
         <span class="pop-badge">Most start here</span>
         <h4>The teardown</h4>
-        <p class="amount">$100</p>
+        <p class="amount">$300 &ndash; $500</p>
         <p>I go through how customer messages move through your business, find where jobs are slipping, and hand you the fix list in writing.</p>
         <p class="fine">Credited toward the build if we move ahead.</p>
         <a class="btn btn-primary" href="#agent">Start with the teardown</a>
@@ -606,9 +617,9 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
       </div>
       <div class="price reveal">
         <h4>Website + domain</h4>
-        <p class="amount">$500</p>
+        <p class="amount">$1,200 &ndash; $1,500</p>
         <p>A focused, mobile-friendly website with a clear path to call, book, or request a quote.</p>
-        <p class="fine">Up to $1,500 with search setup and ranking work. You own the domain.</p>
+        <p class="fine">One-time build. You own the domain.</p>
       </div>
       <div class="price reveal">
         <h4>Custom app + database</h4>
@@ -623,12 +634,13 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
         <p>Once it is live, I keep it running and keep making it better. Cancel anytime.</p>
       </div>
       <div class="ret-tiers">
-        <div class="ret-tier"><b>$100/mo</b><span>Keep it running and growing: small tweaks, priority email support, monthly check-in, and one new automation a month.</span></div>
+        <div class="ret-tier"><b>$250/mo</b><span>Keep it running: small tweaks, priority email support, monthly check-in.</span></div>
+        <div class="ret-tier"><b>$500/mo</b><span>Keep it growing: everything above, plus one new automation a month and phone support.</span></div>
       </div>
     </div>
     <div class="scope-note reveal">
       <strong>Scope note</strong>
-      SUPER AGENT builds are quoted after the teardown, once I can see the actual work. Exact scope, timeline, and ongoing costs are confirmed before the build starts.
+      The AI agent build is quoted after the teardown, once I can see the actual work. Search setup can be added for $500 to $800. Exact scope, timeline, and ongoing costs are confirmed before the build starts.
     </div>
   </div>
 </section>
@@ -637,10 +649,10 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
 <section class="cta" id="contact">
   <div class="wrap">
     <h2 class="reveal">Start with the <span class="script-accent">teardown.</span></h2>
-    <p class="reveal">$100. I go through how customer messages move through your business, find where jobs are slipping, and send back the fix list in writing. Credited toward the build if we move ahead.</p>
+    <p class="reveal">$300 to $500. I go through how customer messages move through your business, find where jobs are slipping, and send back the fix list in writing. Credited toward the build if we move ahead.</p>
     <div class="cta-btns reveal">
-      <a class="btn btn-white" href="#agent">Request the teardown</a>
-      <a class="btn btn-outline" href="mailto:bluemoonstudiosservices@gmail.com?subject=Teardown%20for%20my%20business" style="color:#fff;border-color:#fff">Email me directly</a>
+      <a class="btn btn-outline" href="mailto:bluemoonstudiosservices@gmail.com?subject=Teardown%20for%20my%20business">Email me directly</a>
+      <a class="btn btn-white" href="https://www.instagram.com/bluemoonstudios.ai/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>DM us on Instagram</a>
     </div>
   </div>
 </section>
@@ -655,6 +667,7 @@ footer{border-top:1px solid var(--border);padding:48px 0 32px;background:#fff}
     <div class="foot-base">
       <span>&copy; 2026 Blue Moon Studios</span>
       <span>bluemoonstudiosservices@gmail.com</span>
+      <a href="https://www.instagram.com/bluemoonstudios.ai/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>DM us on Instagram</a>
     </div>
   </div>
 </footer>
